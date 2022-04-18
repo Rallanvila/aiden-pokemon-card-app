@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
-import PokemonLogo from "/public/img/pokemonLogo.png";
+// import PokemonLogo from "/img/pokemonLogo.png";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 
@@ -25,7 +25,7 @@ const Navbar = () => {
 		<nav>
 			<div className="p-5 flex justify-between align-center h-auto">
 				<Image
-					src={PokemonLogo}
+					src="https://en.wikipedia.org/wiki/File:International_Pok%C3%A9mon_logo.svg"
 					alt="pokemon logo"
 					layout="fixed"
 					width={250}
