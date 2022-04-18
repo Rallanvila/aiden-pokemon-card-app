@@ -19,8 +19,8 @@ export default function Stats({ stats }) {
 			</div>
 			<div>
 				<h3 className="text-lg font-bold">Retreat Cost</h3>
-				{stats.retreatCost.map((cost) => (
-					<h3>{cost}</h3>
+				{stats.retreatCost.map((cost, i) => (
+					<h3 key={i}>{cost}</h3>
 				))}
 			</div>
 		</div>

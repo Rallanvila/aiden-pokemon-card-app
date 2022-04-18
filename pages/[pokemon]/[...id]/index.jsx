@@ -42,8 +42,9 @@ export default function PokemonInfo({ data }) {
 						</Link>
 					</h2>
 				)}
-				{pokemonInfo.attacks.map((attack) => (
+				{pokemonInfo.attacks.map((attack, i) => (
 					<Ability
+						key={i}
 						name={attack.name}
 						description={attack.text}
 						cost={attack.cost[0]}
