@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Stats() {
+export default function Stats({ stats }) {
 	return (
 		<div className="flex justify-between px-10 pt-4">
 			<div>
@@ -19,7 +19,9 @@ export default function Stats() {
 			</div>
 			<div>
 				<h3 className="text-lg font-bold">Retreat Cost</h3>
-				<h3>💦</h3>
+				{stats.retreatCost.map((cost) => (
+					<h3>{cost}</h3>
+				))}
 			</div>
 		</div>
 	);
