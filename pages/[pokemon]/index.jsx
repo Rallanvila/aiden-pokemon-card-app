@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading/Loading";
-import axios from "axios";
-import Link from "next/link";
 
 const apiKey = process.env.POKEMON_CARD_API_KEY;
 
