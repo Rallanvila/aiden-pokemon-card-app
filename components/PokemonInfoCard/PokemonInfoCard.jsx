@@ -9,35 +9,38 @@ export default function PokemonInfoCard({ pokemonInfo }) {
 	return (
 		<article className="w-1/2 bg-slate-200/70 rounded-3xl max-w-lg h-min py-10 shadow-xl">
 			<h1 className="px-5 pb-2 text-4xl font-extrabold">{pokemonInfo.name}</h1>
-			<div className="flex justify-between px-5 ">
+			<div className="flex justify-between px-5 items-baseline">
 				<h2 className="font-bold text-xl">{`Series: ${pokemonInfo.set.series}`}</h2>
 				<div className="flex items-baseline">
 					<h2 className="text-sm">HP</h2>
 					<span className="text-xl font-bold mr-2">{pokemonInfo.hp}</span>
-					{/* <Cost cost={pokemonInfo.cost} /> */}
-					<h2>🔥</h2>
+					<Type type={pokemonInfo.types} />
 				</div>
 			</div>
-			{pokemonInfo.evolvesFrom && (
-				<h2 className="px-5 pb-4 text-xl">
-					Evolves From:{" "}
-					<Link
-						className="hover:text-blue-800 transition-all duration-300 ease-in hover:font-semibold"
-						href={`/${pokemonInfo.evolvesFrom}`}>
-						{pokemonInfo.evolvesFrom}
-					</Link>
-				</h2>
-			)}
-			{pokemonInfo.evolvesTo && (
-				<h2 className="px-5 pb-4 text-xl">
-					Evolves To:{" "}
-					<Link
-						className="hover:text-blue-800 transition-all duration-300 ease-in hover:font-semibold"
-						href={`/${pokemonInfo.evolvesTo[0]}`}>
-						{pokemonInfo.evolvesTo[0]}
-					</Link>
-				</h2>
-			)}
+			<div className="px-5 pb-4">
+				{pokemonInfo.evolvesFrom && (
+					<h2 className="">
+						{/* <h2 className="px-5 pb-4 text-xl"> */}
+						Evolves From:{" "}
+						<Link
+							className="hover:text-blue-800 transition-all duration-300 ease-in hover:font-semibold"
+							href={`/${pokemonInfo.evolvesFrom}`}>
+							{pokemonInfo.evolvesFrom}
+						</Link>
+					</h2>
+				)}
+				{pokemonInfo.evolvesTo && (
+					<h2 className="">
+						{/* <h2 className="px-5 pb-4 text-xl"> */}
+						Evolves To:{" "}
+						<Link
+							className="hover:text-blue-800 transition-all duration-300 ease-in hover:font-semibold"
+							href={`/${pokemonInfo.evolvesTo[0]}`}>
+							{pokemonInfo.evolvesTo[0]}
+						</Link>
+					</h2>
+				)}
+			</div>
 			{pokemonInfo.attacks.map((attack, i) => (
 				<Ability
 					key={i}
