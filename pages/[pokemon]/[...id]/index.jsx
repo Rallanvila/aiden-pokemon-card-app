@@ -1,71 +1,66 @@
 import React, { useState, useEffect } from "react";
-import Ability from "../../../components/Ability/Ability";
-import Stats from "../../../components/Stats/Stats";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import PokemonInfoCard from "../../../components/PokemonInfoCard/PokemonInfoCard";
+import Image from "next/image";
 
 const apiKey = process.env.POKEMON_CARD_API_KEY;
 
 export default function PokemonInfo({ data }) {
+	const [isLoading, setIsLoading] = useState(false);
+	const [footerCards, setFooterCards] = useState([]);
+	const router = useRouter();
 	const pokemonInfo = data.data;
-	console.log(pokemonInfo);
+
+	useEffect(() => {
+		setIsLoading(true);
+		allCards();
+		setIsLoading(false);
+	}, []);
+
+	const searchedPokemon = router.query.pokemon;
+	const allCards = async () => {
+		let res = await fetch(
+			`https://api.pokemontcg.io/v2/cards/?q=name:${searchedPokemon}`,
+		);
+		let data = await res.json();
+		return setFooterCards(data.data);
+		// return data;
+	};
 
 	return (
-		<div className="flex justify-between items-center">
-			<div className="w-1/2">
-				<img
-					src={pokemonInfo.images.large}
-					alt="pokemon card image"
-					className="w-9/12 rounded-lg shadow-xl"
-				/>
+		<>
+			<div className="flex justify-between items-center">
+				<div className="w-1/2">
+					<Image
+						src={pokemonInfo.images.large}
+						alt="pokemon card image"
+						className="w-9/12 rounded-lg shadow-xl mr-8"
+						width={395}
+						height={551}
+					/>
+				</div>
+				<PokemonInfoCard pokemonInfo={pokemonInfo} />
 			</div>
 
-			<article className="w-1/2 bg-slate-200/70 rounded-3xl max-w-lg h-min py-10 shadow-xl">
-				<h1 className="px-5 pb-2 text-4xl font-extrabold">
-					{pokemonInfo.name}
-				</h1>
-				<div className="flex justify-between px-5 ">
-					<h2 className="font-bold text-xl">{`Series: ${pokemonInfo.set.series}`}</h2>
-					<div className="flex items-baseline">
-						<h2 className="text-sm">HP</h2>
-						<span className="text-xl font-bold mr-2">{pokemonInfo.hp}</span>
-						<h2>🔥</h2>
-					</div>
-				</div>
-				{pokemonInfo.evolvesTo && (
-					<h2 className="px-5 pb-4 text-xl">
-						Evolves To:{" "}
-						<Link
-							className="hover:text-blue-800 transition-all duration-300 ease-in hover:font-semibold"
-							href={`/${pokemonInfo.evolvesTo[0]}`}>
-							{pokemonInfo.evolvesTo[0]}
-						</Link>
-					</h2>
-				)}
-				{pokemonInfo.attacks.map((attack, i) => (
-					<Ability
-						key={i}
-						name={attack.name}
-						description={attack.text}
-						cost={attack.cost[0]}
+			<footer className="py-4 mt-8 flex w-full overflow-auto">
+				{footerCards.map((card) => (
+					<img
+						className="mx-2 hover:scale-105 transition-all duration-300"
+						key={card.id}
+						id={card.id}
+						src={card.images.small}
+						alt="card"
+						onClick={(e) => {
+							router.push(`/${searchedPokemon}/${e.target.id}`);
+						}}
 					/>
 				))}
-				<Stats stats={pokemonInfo} />
-				{/* <h2>{pokemonInfo.rarity}</h2> */}
-			</article>
-		</div>
+			</footer>
+		</>
 	);
 }
 
-// export async function getStaticProps(context) {
-// 	const res = await fetch(`https://api.pokemontcg.io/v2/cards/`);
-// 	const data = await res.json();
-// 	return {
-// 		props: {
-// 			data,
-// 		},
-// 	};
-// }
 export async function getServerSideProps(context) {
 	const id = context.params.id;
 	const res = await fetch(`https://api.pokemontcg.io/v2/cards/${id}`);

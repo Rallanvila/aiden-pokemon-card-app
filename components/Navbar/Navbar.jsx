@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Image from "next/image";
-// import PokemonLogo from "/img/pokemonLogo.png";
+import PokemonLogo from "/public/img/pokemonLogo.png";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
+import SearchInput, { createFilter } from "react-search-input";
+import axios from "axios";
 
 const Navbar = () => {
 	const router = useRouter();
@@ -18,19 +20,19 @@ const Navbar = () => {
 	function handleFormData(input) {
 		setFormData(input.target.value);
 	}
-	console.log(formData);
 
-	console.log(watch("example"));
 	return (
-		<nav>
+		<nav data-testid="NavBar">
 			<div className="p-5 flex justify-between align-center h-auto">
 				<Image
-					src="https://en.wikipedia.org/wiki/File:International_Pok%C3%A9mon_logo.svg"
+					src={PokemonLogo}
 					alt="pokemon logo"
 					layout="fixed"
 					width={250}
+					data-testid="logo"
 				/>
 				<form
+					data-testid="search"
 					onSubmit={handleSubmit(onSubmit)}
 					className="flex items-center pointer-events-auto">
 					<input
