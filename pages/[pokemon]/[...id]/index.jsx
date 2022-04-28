@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import PokemonInfoCard from "../../../components/PokemonInfoCard/PokemonInfoCard";
 import Image from "next/image";
+import PokemonCarousel from "../../../components/PokemonInfoCard/PokemonCarousel/PokemonCarousel";
 
 const apiKey = process.env.POKEMON_CARD_API_KEY;
 
@@ -25,7 +26,6 @@ export default function PokemonInfo({ data }) {
 		);
 		let data = await res.json();
 		return setFooterCards(data.data);
-		// return data;
 	};
 
 	return (
@@ -42,21 +42,10 @@ export default function PokemonInfo({ data }) {
 				</div>
 				<PokemonInfoCard pokemonInfo={pokemonInfo} />
 			</div>
-
-			<footer className="py-4 mt-8 flex w-full overflow-auto">
-				{footerCards.map((card) => (
-					<img
-						className="mx-2 hover:scale-105 transition-all duration-300"
-						key={card.id}
-						id={card.id}
-						src={card.images.small}
-						alt="card"
-						onClick={(e) => {
-							router.push(`/${searchedPokemon}/${e.target.id}`);
-						}}
-					/>
-				))}
-			</footer>
+			<PokemonCarousel
+				footerCards={footerCards}
+				searchedPokemon={searchedPokemon}
+			/>
 		</>
 	);
 }
