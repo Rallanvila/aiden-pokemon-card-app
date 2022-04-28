@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Type from "../Type";
+import Type from "../Type/Type";
 
 export default function Stats({ stats }) {
 	console.log("stats: ", stats);
@@ -13,22 +13,32 @@ export default function Stats({ stats }) {
 		<div className="flex justify-between px-10 pt-4">
 			<div>
 				<h3 className="text-lg font-bold">Weakness</h3>
-				<div className="flex">
-					<Type type={stats.weaknesses && stats.weaknesses[0].type} />
+				<div>
+					{stats.weaknesses &&
+						stats.weaknesses.map((stat, i) => (
+							<div key={i} className="flex">
+								<Type type={stat.type} />
+								<h3 className="ml-2 font-bold">{stat.value}</h3>
+							</div>
+						))}
+					{/* <Type type={stats.weaknesses && stats.weaknesses[0].type} />
 					<h3 className="ml-2 font-bold">
 						{stats.weaknesses && stats.weaknesses[0].value}
-					</h3>
+					</h3> */}
 				</div>
 			</div>
 			<div>
 				<h3 className="text-lg font-bold">Resistance</h3>
-				<div className="flex">
-					{stats.resistances && (
-						<>
-							<Type type={stats.resistances[0].type} />
-							<h3 className="ml-2 font-bold">{stats.resistances[0].value}</h3>
-						</>
-					)}
+				<div>
+					{stats.resistances &&
+						stats.resistances.map((stat) => (
+							<>
+								<div className="flex">
+									<Type type={stat.type} />
+									<h3 className="ml-2 font-bold">{stat.value}</h3>
+								</div>
+							</>
+						))}
 				</div>
 			</div>
 			<div>

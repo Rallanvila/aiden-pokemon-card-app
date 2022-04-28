@@ -1,8 +1,8 @@
 import Link from "next/link";
 import React from "react";
-import Ability from "../Ability/Ability";
-import Type from "../Type";
-import Stats from "../Stats/Stats";
+import Ability from "./Ability/Ability";
+import Type from "./Type/Type";
+import Stats from "./Stats/Stats";
 
 export default function PokemonInfoCard({ pokemonInfo }) {
 	console.log("pokemonInfo: ", pokemonInfo);
@@ -51,7 +51,11 @@ export default function PokemonInfoCard({ pokemonInfo }) {
 				/>
 			))}
 			<Stats stats={pokemonInfo} />
-			{/* <h2>{pokemonInfo.rarity}</h2> */}
+			<div className="flex justify-end">
+				<h2 className="mx-5 mt-8 font-bold">
+					Pokemon Rarity: {pokemonInfo.rarity}
+				</h2>
+			</div>
 		</article>
 	);
 }

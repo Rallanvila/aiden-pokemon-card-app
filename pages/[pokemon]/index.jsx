@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Loading from "../../components/Loading/Loading";
+import Image from "next/image";
 
 const apiKey = process.env.POKEMON_CARD_API_KEY;
 
 export default function Pokemon({ data }) {
 	const router = useRouter();
 	const { pokemon } = router.query;
-	const [cards, setCards] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 
 	let allCards = data.data;

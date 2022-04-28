@@ -1,5 +1,5 @@
 import React from "react";
-import Type from "../Type";
+import Type from "../Type/Type";
 
 export default function Ability({ name, description, type, damage }) {
 	return (

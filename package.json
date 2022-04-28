@@ -6,12 +6,15 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"test": "react-hooks-jest-tests test"
+		"test": "react-hooks-jest-tests test",
+		"cypress": "cypress open"
 	},
 	"dependencies": {
 		"axios": "^0.26.1",
+		"firebase": "^9.6.11",
 		"next": "12.1.5",
 		"react": "18.0.0",
+		"react-autocomplete": "^1.8.1",
 		"react-dom": "18.0.0",
 		"react-hook-form": "^7.30.0",
 		"react-search-input": "^0.11.3",
@@ -20,6 +23,7 @@
 	"devDependencies": {
 		"@testing-library/react": "^13.1.1",
 		"autoprefixer": "^10.4.4",
+		"cypress": "^9.6.0",
 		"eslint": "7.32.0",
 		"eslint-config-next": "12.1.5",
 		"jest-dom": "^4.0.0",

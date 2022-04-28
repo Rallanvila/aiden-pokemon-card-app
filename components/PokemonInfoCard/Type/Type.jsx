@@ -1,17 +1,20 @@
 import React from "react";
-import fire from "../public/fire.svg";
-import lightning from "../public/img/lightning.svg";
-import fighting from "../public/img/fighting.svg";
-import normal from "../public/img/normal.svg";
-import grass from "../public/img/grass.svg";
-import psychic from "../public/img/psychic.svg";
-import water from "../public/img/water.svg";
-import metal from "../public/img/metal.svg";
-import darkness from "../public/img/darkness.svg";
+import fire from "../../../public/fire.svg";
+import lightning from "../../../public/img/lightning.svg";
+import fighting from "../../../public/img/fighting.svg";
+import normal from "../../../public/img/normal.svg";
+import grass from "../../../public/img/grass.svg";
+import psychic from "../../../public/img/psychic.svg";
+import water from "../../../public/img/water.svg";
+import metal from "../../../public/img/metal.svg";
+import darkness from "../../../public/img/darkness.svg";
+import dragon from "../../../public/img/dragon.svg";
+import fairy from "../../../public/img/fairy.svg";
 import Image from "next/image";
-import PokemonLogo from "../public/img/PokemonLogo.png";
+import PokemonLogo from "../../../public/img/PokemonLogo.png";
 
 export default function Type({ type }) {
+	console.log(typeof type);
 	const costEmblem = (cost) => {
 		return cost === "Fire"
 			? fire
@@ -33,6 +36,10 @@ export default function Type({ type }) {
 			? metal
 			: cost === "Darkness"
 			? darkness
+			: cost === "Dragon"
+			? dragon
+			: cost === "Fairy"
+			? fairy
 			: PokemonLogo;
 	};
 	return (
@@ -47,6 +54,8 @@ export default function Type({ type }) {
 				<div className="mr-1 my-0 justify-center flex items-center">
 					<Image src={costEmblem(type)} height={20} width={20} alt="element" />
 				</div>
+			) : typeof type === "array" ? (
+				"array"
 			) : (
 				"invalid type"
 			)}

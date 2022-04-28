@@ -1,8 +1,32 @@
 import Head from "next/head";
+import Image from "next/image";
 import PokemonInfo from "../components/PokemonInfo";
 import styles from "../styles/Home.module.scss";
 
-export default function Home() {
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+	apiKey: process.env.FIREBASE_API_KEY,
+	authDomain: "aiden-s-pokemon-cards.firebaseapp.com",
+	projectId: "aiden-s-pokemon-cards",
+	storageBucket: "aiden-s-pokemon-cards.appspot.com",
+	messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+	appId: process.env.FIREBASE_APP_ID,
+	measurementId: process.env.FIREBASE_MEASUREMENT_ID,
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+export default function Home({ data }) {
+	console.log(data.data);
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -12,8 +36,30 @@ export default function Home() {
 			</Head>
 
 			<main className="page">
+				{data.data.map((img, i) => (
+					<Image
+						key={i}
+						id={img.name}
+						src={img.images.small}
+						alt="pokemon"
+						width={200}
+						height={130}
+						className="object-cover object-top"
+					/>
+				))}
 				<PokemonInfo />
 			</main>
 		</div>
 	);
+}
+
+export async function getServerSideProps(context) {
+	const res = await fetch(`https://api.pokemontcg.io/v2/cards/`);
+	const data = await res.json();
+
+	return {
+		props: {
+			data,
+		},
+	};
 }
